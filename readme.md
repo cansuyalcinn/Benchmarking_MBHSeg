@@ -1,4 +1,4 @@
-# Benchmarking MBHSeg
+# Benchmarking multi-class intracranial hemorrhage segmentation using semi-supervision
 
 ## Setup
 
