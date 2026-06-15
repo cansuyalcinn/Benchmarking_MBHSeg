@@ -1,0 +1,5 @@
+/data
+/data/nnUNet/nnUNet_preprocessed
+/data/nnUNet/nnUNet_raw
+/data/nnUNet/nnUNet_results
+/paths.txt
