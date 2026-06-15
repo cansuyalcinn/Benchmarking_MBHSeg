@@ -37,28 +37,47 @@ Run models from `/home/user/Benchmarking_MBHSeg/nnUNet/nnunetv2/training/nnUNetT
 - **nnUNetTrainer_FPML_challengeX** — FPML with additional unlabeled samples from MBHSeg2024 challenge (192 labeled + random unlabeled samples) 
 
 
-Running training:
+## Data Preparation
 
-First, preprocessing the data. 
-
-```bash
-nnUNetv2_plan_and_preprocess -d 200 --verify_dataset_integrity 
-```
+1. Place your dataset in `data/nnUNet/nnUNet_raw/` following nnUNet format
+2. Preprocess the data:
 
 ```bash
-CUDA_VISIBLE_DEVICES=0 nnUNetv2_train d 3d_fullres f -tr trainerName --percentage_labeled_data p --seed_name s1 --seed_balance s2 
+nnUNetv2_plan_and_preprocess -d 200 --verify_dataset_integrity
 ```
-where:
 
-- `d` — dataset identifier (ID)
-- `f` — fold index (default: `0`)
-- `trainerName` — name of the trainer
-- `p` — percentage of the training set to use as labeled data
-- `s1` — random seed (default: `0`)
-- `s2` — random seed used for selecting the labeled subset
+## Training
 
-Example run: 
-
+### Step 1: Preprocess
 ```bash
-CUDA_VISIBLE_DEVICES=0 nnUNetv2_train 200 3d_fullres 0 -tr nnUNetTrainer_FPML --percentage_labeled_data 0.1 --seed_name 0 --seed_balance 42 
+nnUNetv2_plan_and_preprocess -d 200 --verify_dataset_integrity
 ```
+
+### Step 2: Train Model
+
+**Command template:**
+```bash
+CUDA_VISIBLE_DEVICES=0 nnUNetv2_train <dataset_id> 3d_fullres <fold> -tr <trainer_name> \
+  --percentage_labeled_data <percentage> --seed_name <seed> --seed_balance <seed2>
+```
+
+**Parameters:**
+- `<dataset_id>` — Dataset ID (e.g., `200`)
+- `<fold>` — Fold index for cross-validation (e.g., `0`)
+- `<trainer_name>` — Trainer to use (e.g., `nnUNetTrainer_FPML`)
+- `<percentage>` — Labeled data percentage (e.g., `0.1` for 10%)
+- `<seed>` — Random seed (e.g., `0`)
+- `<seed2>` — Seed for labeled data selection (e.g., `42`)
+
+**Example:**
+```bash
+CUDA_VISIBLE_DEVICES=0 nnUNetv2_train 200 3d_fullres 0 -tr nnUNetTrainer_FPML \
+  --percentage_labeled_data 0.1 --seed_name 0 --seed_balance 42
+```
+
+## Results
+
+Model outputs are saved to the `nnUNet_results/` directory:
+- Logs and checkpoints in `Dataset200/`
+- Best model weights stored per fold and trainer
+
