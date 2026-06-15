@@ -50,7 +50,7 @@ def main():
     if args.device == "cuda":
         os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu)
 
-    data_base = "/home/cansu/MBHSEG25_NICVICOROB/data/nnUNet"
+    data_base = "/home/user/Benchmarking_MBHSeg/data/nnUNet"
     input_folder = os.path.join(data_base, "nnUNet_raw", args.dataset, "imagesTs")
     model_folder = os.path.join(data_base, "nnUNet_results", args.dataset, args.model)
     output_folder = os.path.join(model_folder, f"fold_{args.fold}", "test")
@@ -110,7 +110,6 @@ def main():
     )
 
     print(f"\nDone! Predictions saved to: {output_folder}")
-    print(f"Now run evaluation with:\n  python evaluation_test.py -d {args.dataset} -m {args.model} -f {args.fold}")
 
 
 if __name__ == "__main__":

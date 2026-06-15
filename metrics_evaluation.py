@@ -10,7 +10,7 @@ import pandas as pd
 import SimpleITK as sitk
 
 # Add surface-distance library to path
-sys.path.insert(0, "/home/cansu/surface-distance")
+sys.path.insert(0, "/home/user/surface-distance")
 from surface_distance import compute_surface_distances, compute_surface_dice_at_tolerance
 
 
@@ -79,13 +79,13 @@ tolerance_mm = 1.0
 # Evaluate all test patients
 # -------------------------
 def main(dataset_name, model_folder, fold):
-    base_path = f"/home/cansu/MBHSEG25_NICVICOROB/data/nnUNet/nnUNet_raw/{dataset_name}"
+    base_path = f"/home/user/Benchmarking_MBHSeg/data/nnUNet/nnUNet_raw/{dataset_name}"
     images_ts = os.path.join(base_path, "imagesTs")
     labels_ts = os.path.join(base_path, "labelsTs")
 
     prediction_folder_name = "test"
-    predictions_dir = f"/home/cansu/MBHSEG25_NICVICOROB/data/nnUNet/nnUNet_results/{dataset_name}/{model_folder}/fold_{fold}/{prediction_folder_name}"
-    results_base = f"/home/cansu/MBHSEG25_NICVICOROB/data/nnUNet/nnUNet_results/{dataset_name}/{model_folder}/fold_{fold}"
+    predictions_dir = f"/home/user/Benchmarking_MBHSeg/data/nnUNet/nnUNet_results/{dataset_name}/{model_folder}/fold_{fold}/{prediction_folder_name}"
+    results_base = f"/home/user/Benchmarking_MBHSeg/data/nnUNet/nnUNet_results/{dataset_name}/{model_folder}/fold_{fold}"
     csv_path = os.path.join(results_base, f"{prediction_folder_name}_dice_nsd_multiclass.csv")
     mean_txt_path = os.path.join(results_base, f"{prediction_folder_name}_mean_metrics.txt")
 
